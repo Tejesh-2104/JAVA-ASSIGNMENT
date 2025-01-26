@@ -1,0 +1,64 @@
+public class PrimeFilter {
+    public static void main(String[] args) {
+        int[] numbers = {2, 3, 4, 5, 6, 7, 7, 11, 13, 13, 15};
+
+        System.out.print("Original Array: ");
+        printArray(numbers);
+
+        int[] primes = getUniquePrimes(numbers);
+
+        System.out.print("Filtered Primes (Unique): ");
+        printArray(primes);
+    }
+
+    public static int[] getUniquePrimes(int[] array) {
+        int[] temp = new int[array.length]; 
+        int count = 0; 
+
+        for (int i = 0; i < array.length; i++) {
+            if (isPrime(array[i]) && !existsInArray(temp, count, array[i])) {
+                temp[count] = array[i];
+                count++;
+            }
+        }
+
+        int[] result = new int[count];
+        for (int i = 0; i < count; i++) {
+            result[i] = temp[i];
+        }
+
+        return result;
+    }
+
+    public static boolean isPrime(int num) {
+        if (num <= 1) {
+            return false;
+        }
+        for (int i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean existsInArray(int[] array, int size, int value) {
+        for (int i = 0; i < size; i++) {
+            if (array[i] == value) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void printArray(int[] array) {
+        System.out.print("[");
+        for (int i = 0; i < array.length; i++) {
+            System.out.print(array[i]);
+            if (i < array.length - 1) {
+                System.out.print(", ");
+            }
+        }
+        System.out.println("]");
+    }
+}
